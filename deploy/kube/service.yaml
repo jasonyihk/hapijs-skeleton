@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: {{NAMESPACE}}
+  name: member-service
+  labels:
+    app: member-service
+spec:
+  ports:
+  - name: svc-port
+    protocol: TCP
+    port: 80
+    targetPort: svc-port
+  selector:
+    app: member
+  type: ClusterIP

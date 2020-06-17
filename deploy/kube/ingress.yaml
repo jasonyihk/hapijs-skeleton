@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: {{NAMESPACE}}
+  name: member
+  annotations:
+    kubernetes.io/tls-acme: "{{TLS}}"
+    kubernetes.io/ingress.class: "{{NGINX_CLASS}}"
+spec:
+  rules:
+  - host: {{DOMAIN}}
+    http:
+      paths:
+      - backend:
+          serviceName: member-service
+          servicePort: svc-port
+        path: "/member/v1"

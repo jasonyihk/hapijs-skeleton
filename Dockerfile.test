@@ -1,0 +1,29 @@
+FROM member:{{IMAGE_TAG}}
+LABEL MAINTAINER LKKHPGDI <digital.innovation@infinitus-int.com>
+
+USER root
+
+RUN set -x \
+    && apk --no-cache add git openssh-client \
+    && rm -rf /var/cache/apk/*
+
+RUN yarn global add istanbul mocha
+
+# switch to node user
+USER node
+
+RUN mkdir ~/.ssh && touch ~/.ssh/known_hosts \
+	&& ssh-keyscan -t rsa bitbucket.org >> ~/.ssh/known_hosts \
+    && ssh-keyscan -t rsa bitbucket.lkkhpgdi.com >> ~/.ssh/known_hosts
+
+RUN chmod 400 keys/id_rsa \
+    && cp keys/id_rsa ~/.ssh/ 
+
+WORKDIR ${WORK_DIR}
+
+COPY --chown=node:node test/ test/
+
+RUN yarn install --production=false --ignore-engines --ignore-optional
+
+CMD ["npm", "run", "test"]
+

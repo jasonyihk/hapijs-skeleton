@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: {{NAMESPACE}}
+  name: member-metrics
+  labels:
+    app: member-metrics
+spec:
+  ports:
+  - name: http-metrics
+    protocol: TCP
+    port: 80
+    targetPort: svc-port
+  selector:
+    app: member
+  type: ClusterIP

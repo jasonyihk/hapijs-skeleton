@@ -1,0 +1,47 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  namespace: {{NAMESPACE}}
+  name: member
+  labels:
+    app: member
+spec:
+  replicas: {{REPLICAS}}
+  selector:
+    matchLabels:
+      app: member
+  template:
+    metadata:
+      labels:
+        app: member
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: member
+        image: {{ECR}}/member:{{IMAGE_TAG}}
+        ports:
+        - name: svc-port
+          containerPort: 3000
+        envFrom:
+        - secretRef:
+            name: member-config
+        readinessProbe:
+          tcpSocket:
+            port: svc-port
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+        livenessProbe:
+          tcpSocket:
+            port: svc-port
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+        resources:
+          limits:
+            memory: 300Mi
+            cpu: 100m

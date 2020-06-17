@@ -1,0 +1,14 @@
+deploy/
+build
+node_modules
+db
+Tiltfile
+package-lock.json
+Jenkinsfile
+Dockerfile*
+makefile
+docker-compose.yml
+.git
+.gitignore
+.vscode
+.DS_Store

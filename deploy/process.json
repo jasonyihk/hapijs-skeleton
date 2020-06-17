@@ -1,0 +1,19 @@
+{
+    "kube_dev": {
+        "MONGODB_URI": "mongodb://admin:password@mongo-0.mongod.dev.svc.cluster.local,mongo-1.mongod.dev.svc.cluster.local,mongo-2.mongod.dev.svc.cluster.local/member?replicaSet=rs0&authSource=admin",
+        "AUTH_DOMAIN": "http://om-auth-service.sit"
+    },
+    "kube_uat": {
+        "MONGODB_URI": "mongodb://admin:password@mongo-0.mongod.uat.svc.cluster.local,mongo-1.mongod.uat.svc.cluster.local,mongo-2.mongod.uat.svc.cluster.local/member?replicaSet=rs0&authSource=admin",
+        "AUTH_DOMAIN": "http://om-auth-service.uat"
+    },
+    "kube_stag": {
+         "MONGODB_URI": "mongodb://member_rw:xxx@mongo-0.mongod.stag.svc.cluster.local,mongo-1.mongod.stag.svc.cluster.local,mongo-2.mongod.stag.svc.cluster.local/member?replicaSet=rs0",
+         "AUTH_DOMAIN": "http://om-auth-service.stag"
+     },
+    "kube_prod": {
+        "NODE_ENV": "production",
+        "MONGODB_URI": "mongodb://member_rw:xxxx@mongo-0.mongod.prod.svc.cluster.local,mongo-1.mongod.prod.svc.cluster.local,mongo-2.mongod.prod.svc.cluster.local/member?replicaSet=rs0",
+        "AUTH_DOMAIN": "http://om-auth-service.prod"
+     }
+}
